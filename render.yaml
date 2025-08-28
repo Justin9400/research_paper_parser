@@ -1,0 +1,15 @@
+services:
+  - type: web            # use 'private_service' if you want it internal-only
+    name: grobid
+    env: docker
+    docker:
+      image: grobid/grobid:latest
+    plan: starter        # pick a plan; bump if you need more RAM/CPU
+    autoDeploy: false    # prebuilt images don't auto-deploy on push
+    healthCheckPath: /api/isalive
+    envVars:
+      - key: JAVA_OPTS
+        value: -Xms512m -Xmx4g
+    # GROBID listens on 8070; Render auto-detects for Docker images,
+    # but you can be explicit:
+    port: 8070
