@@ -1,15 +1,14 @@
 services:
-  - type: web            # use 'private_service' if you want it internal-only
+  # Use type: pserv if you want it private-only
+  - type: web
     name: grobid
-    env: docker
-    docker:
-      image: grobid/grobid:latest
-    plan: starter        # pick a plan; bump if you need more RAM/CPU
-    autoDeploy: false    # prebuilt images don't auto-deploy on push
+    runtime: image
+    image:
+      url: docker.io/lfoppiano/grobid:0.8.2   # official image
+    plan: starter
     healthCheckPath: /api/isalive
     envVars:
       - key: JAVA_OPTS
         value: -Xms512m -Xmx4g
-    # GROBID listens on 8070; Render auto-detects for Docker images,
-    # but you can be explicit:
+    # GROBID listens on 8070 internally; Render will route to this port
     port: 8070
