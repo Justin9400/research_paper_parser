@@ -10,5 +10,3 @@ services:
     envVars:
       - key: JAVA_OPTS
         value: -Xms512m -Xmx4g
-    # GROBID listens on 8070 internally; Render will route to this port
-    port: 8070
